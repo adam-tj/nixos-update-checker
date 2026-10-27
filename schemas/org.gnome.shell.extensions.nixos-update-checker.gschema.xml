@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.nixos-update-checker"
+          path="/org/gnome/shell/extensions/nixos-update-checker/">
+
+    <!-- System -->
+    <key name="channel" type="s">
+      <default>''</default>
+      <summary>Channel override</summary>
+      <description>Empty means use the detected channel. e.g. nixos-unstable, nixos-unstable-small, nixos-25.11</description>
+    </key>
+    <key name="detected-channel" type="s">
+      <default>''</default>
+      <summary>Channel worked out from nixos-version (written by the extension)</summary>
+    </key>
+    <key name="autodetect-channel" type="b">
+      <default>true</default>
+      <summary>Work out the channel from nixos-version</summary>
+    </key>
+    <key name="color-system" type="s">
+      <default>'#ff5555'</default>
+      <summary>Icon colour when the system is behind</summary>
+    </key>
+
+    <!-- Flake inputs -->
+    <key name="flake-enabled" type="b">
+      <default>false</default>
+      <summary>Check flake inputs at all</summary>
+      <description>Off turns the extension into a plain channel checker.</description>
+    </key>
+    <key name="flake-path" type="s">
+      <default>''</default>
+      <summary>Flake folder (or flake.lock file) to check inputs of</summary>
+      <description>Leave empty to skip the input check. A leading ~ is expanded.</description>
+    </key>
+    <key name="second-flake-enabled" type="b">
+      <default>false</default>
+      <summary>Also check a second flake</summary>
+    </key>
+    <key name="flake-path-2" type="s">
+      <default>''</default>
+      <summary>Second flake folder (or flake.lock file)</summary>
+    </key>
+    <key name="ignored-inputs" type="s">
+      <default>''</default>
+      <summary>Comma-separated input names to skip entirely</summary>
+    </key>
+    <key name="input-order" type="s">
+      <default>'system'</default>
+      <summary>Order to list inputs in</summary>
+      <description>Comma-separated input names. "system" means whichever input built the running system; "*" marks where unlisted inputs go. Anything unlisted is sorted alphabetically.</description>
+    </key>
+    <key name="muted-inputs" type="s">
+      <default>''</default>
+      <summary>Comma-separated input names that never colour the icon</summary>
+      <description>Still checked and still listed, but excluded from the icon state.</description>
+    </key>
+    <key name="hide-inputs" type="b">
+      <default>false</default>
+      <summary>Hide the flake input list in the menu</summary>
+      <description>Inputs are still checked; only the list is hidden.</description>
+    </key>
+    <key name="only-outdated" type="b">
+      <default>false</default>
+      <summary>List only inputs that are behind</summary>
+    </key>
+    <key name="sort-order" type="s">
+      <choices>
+        <choice value="lock"/>
+        <choice value="behind"/>
+        <choice value="age"/>
+      </choices>
+      <default>'lock'</default>
+      <summary>Order of the input list</summary>
+    </key>
+    <key name="color-inputs" type="s">
+      <default>'#ffb000'</default>
+      <summary>Icon colour when only flake inputs are behind</summary>
+    </key>
+    <key name="update-command" type="s">
+      <default>'nix flake update {input}'</default>
+      <summary>Command copied from a behind input's menu</summary>
+      <description>{input} is replaced with the input's name.</description>
+    </key>
+    <key name="show-open-folder" type="b">
+      <default>true</default>
+      <summary>Show an "Open flake folder" entry in the menu</summary>
+    </key>
+
+    <!-- General -->
+    <key name="color-reboot" type="s">
+      <default>'#9141ac'</default>
+      <summary>Icon colour when a reboot is needed</summary>
+    </key>
+    <key name="interval-minutes" type="u">
+      <range min="5" max="1440"/>
+      <default>120</default>
+      <summary>Minutes between checks</summary>
+    </key>
+    <key name="notify" type="b">
+      <default>true</default>
+      <summary>Send a notification when something falls behind</summary>
+    </key>
+    <key name="notify-per-episode" type="b">
+      <default>true</default>
+      <summary>Announce an input only once per spell of being behind</summary>
+      <description>A failed check does not count as a return to up-to-date.</description>
+    </key>
+    <key name="quiet-hours" type="b">
+      <default>false</default>
+      <summary>Hold notifications during a nightly window</summary>
+    </key>
+    <key name="quiet-from" type="s">
+      <default>'22:00'</default>
+      <summary>Start of the quiet window (HH:MM)</summary>
+    </key>
+    <key name="quiet-to" type="s">
+      <default>'08:00'</default>
+      <summary>End of the quiet window (HH:MM)</summary>
+    </key>
+    <key name="notify-once-daily" type="b">
+      <default>false</default>
+      <summary>At most one notification per item per day</summary>
+    </key>
+    <key name="check-reboot" type="b">
+      <default>true</default>
+      <summary>Warn when the booted kernel is older than the current system</summary>
+      <description>Compares /run/booted-system with /run/current-system.</description>
+    </key>
+    <key name="recheck-on-network" type="b">
+      <default>true</default>
+      <summary>Re-check when the network becomes available again</summary>
+      <description>Also covers waking from suspend, which looks like a reconnect.</description>
+    </key>
+    <key name="show-last-checked" type="b">
+      <default>true</default>
+      <summary>Show the last-checked time in the menu</summary>
+    </key>
+    <key name="show-version" type="b">
+      <default>false</default>
+      <summary>Show the version number in the menu</summary>
+    </key>
+    <key name="hide-system-lines" type="b">
+      <default>false</default>
+      <summary>Leave the system lines out of the menu</summary>
+      <description>Hides the status, installed and latest lines. The status line still appears when a check fails, since the error is not shown anywhere else.</description>
+    </key>
+    <key name="hide-when-current" type="b">
+      <default>false</default>
+      <summary>Hide the panel icon while everything is up to date</summary>
+    </key>
+    <key name="cache-results" type="b">
+      <default>true</default>
+      <summary>Remember the last result between sessions</summary>
+    </key>
+    <key name="failure-backoff" type="b">
+      <default>true</default>
+      <summary>Retry a repeatedly failing input less often</summary>
+    </key>
+  </schema>
+</schemalist>
