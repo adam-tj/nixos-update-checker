@@ -1,17 +1,11 @@
 {
   "uuid": "nixos-update-checker@adam-tj.github.com",
   "name": "NixOS Update Checker",
-  "description": "Shows whether your NixOS system is behind the latest nixos-unstable (or stable) channel revision.",
-  "version": 41,
-  "version-name": "0.0.41",
+  "description": "Shows whether your NixOS system is behind the latest channel revision.",
+  "version": 1,
+  "version-name": "0.1.0",
   "shell-version": [
-    "45",
-    "46",
-    "47",
-    "48",
-    "49",
-    "50",
-    "51"
+    "50"
   ],
   "settings-schema": "org.gnome.shell.extensions.nixos-update-checker",
   "url": "https://github.com/adam-tj/nixos-update-checker"
