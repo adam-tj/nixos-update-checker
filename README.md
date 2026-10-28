@@ -50,8 +50,8 @@ a reboot — the extension doesn't nag you after every rebuild.
 
 ## Requirements
 
-- GNOME Shell 50 or newer (tested on 50; the manifest also allows 45–49, untested)
-- `git`, for flake input checking (optional; a GitHub-only fallback exists)
+- GNOME Shell 50
+- `git` for flake input checking (optional; a GitHub-only fallback exists)
 - NixOS
 
 ## Install
