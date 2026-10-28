@@ -14,7 +14,7 @@ configuration, and never changes your `flake.lock`.
 | ✓ | Everything is up to date |
 | ⬆ red | Your system is behind its channel |
 | ⬆ amber | The system is current, but one or more flake inputs are behind |
-| ⏻ purple | A reboot is needed: the booted kernel is older than the current system |
+| ⏻  purple | A reboot is needed: the booted kernel is older than the current system |
 | ? | The last check failed — the menu says why |
 
 Only one state can show at a time, so they have a priority order: **system →
